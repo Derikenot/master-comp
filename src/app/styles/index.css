@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+
+    --color-white: #FFFDFD;
+    --color-black: #100F0F;
+
+    --color-primary: #4BED7B;
+    --color-accent: #A3F1BE;
+    --color-light-accent: #D2ECE6;
+
+    --color-gray: #F1F5F2;
+    --color-dark-gray: #A9A9A9;
+
+    --color-dark-green: #48625C;
+
+    --color-red: #DA3121;
+    --color-yellow: #FFC300;
+
+    --border-radius-lg: 1.875rem;
+    --border-radius-md: 1.625rem;
+    --border-radius-sm: 1.25rem;
+
+    --font-sans: "Rubik";
+
+    --transition-duration: 0,2s;
+}
+
+@layer base {
+    body{
+        font-family: var(--font-sans), sans-serif;
+        background-color: var(--color-white);
+        font-size: 1rem;
+    }
+
+    h2, h3 {
+        color: var(--color-black);
+        font-weight: 500;
+    }
+
+    input,
+    label,
+    button {
+        transition-duration: var(--transition-duration);
+    }
+
+    :focus-visible {
+        outline: 2px dashed var(--color-black);
+        outline-offset: 2px;
+        transition-duration: 0s !important;
+    }
+}
+
+@layer components {
+    .container {
+        max-width: 1360px;
+        margin-inline: auto;
+        padding-inline: 1rem;
+    }
+}
