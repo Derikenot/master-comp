@@ -1,7 +1,7 @@
-import { NavLink as RouterNavLink } from 'react-router-dom';
+import { NavLink as RouterNavLink, type NavLinkProps as RouterNavLinkProps } from 'react-router-dom';
 import { cn } from '@/shared/lib';
 
-interface NavLinkProps {
+interface NavLinkProps extends RouterNavLinkProps{
   to: string;
   label: string;
   className?: string;
