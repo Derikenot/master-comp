@@ -2,15 +2,16 @@ import { CatalogButton } from '@/features/toggle-catalog';
 import { SearchInput } from '@/features/product-search';
 import { NAV_ACTIONS } from '../config/nav-actions.config';
 import { LocationSelector, NavItems, SecondaryNavItems } from '@/widgets/header';
+import { Link } from 'react-router-dom';
 
 export const HeaderDesktop = () => {
   return (
     <header className="pt-6 pb-10 bg-gray">
       <div className="fluid-container">
         <div className="flex items-center justify-between gap-6 xl:gap-10 not-last:mb-9">
-          <a className="text-3xl font-medium" href="/">
+          <Link className="text-3xl font-medium" to="/">
             МастерКомп
-          </a>
+          </Link>
 
           <div className="flex flex-1 gap-4">
             <CatalogButton />

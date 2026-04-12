@@ -8,11 +8,11 @@ interface SearchInputProps {
 
 export const SearchInput = ({ className }: SearchInputProps) => {
   return (
-    <form className={cn('flex items-center w-full', className)}>
+    <form className={cn('flex items-center justify-center w-full', className)}>
       <label className="sr-only" htmlFor="search">
         Search
       </label>
-      <div className="relative w-full flex items-center">
+      <div className="relative w-full max-w-[700px] flex items-center">
         <Search className="absolute top-1/2 left-4 -translate-y-1/2 text-dark-gray" size={24} />
         <input
           className="border-2 lg:border border-dark-gray rounded-sm h-12 pl-12 pr-27 w-full placeholder:text-dark-gray"
@@ -20,7 +20,9 @@ export const SearchInput = ({ className }: SearchInputProps) => {
           id="search"
           placeholder="Искать товар"
         />
-        <Button className="absolute right-0 h-full rounded-sm" children="Найти" type="submit" />
+        <Button className="absolute right-0 h-full rounded-sm" type="submit">
+          Найти
+        </Button>
       </div>
     </form>
   );
