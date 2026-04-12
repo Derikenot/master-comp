@@ -12,7 +12,7 @@ export const SecondaryNavItems = ({ className }: SecondaryNavItemsProps) => {
       <ul className={cn('flex items-center justify-between gap-3 xl:gap-6', className)}>
         {SECONDARY_NAV_ITEMS.map(({ label, href }) => (
           <li key={href}>
-            <NavLink to={href} label={label} />
+            <NavLink to={href} className="text-dark-gray" label={label} />
           </li>
         ))}
       </ul>
