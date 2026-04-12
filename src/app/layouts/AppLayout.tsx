@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router-dom';
-import { Header } from '@/widgets/header';
+import { HeaderDesktop, HeaderMobile } from '@/widgets/header';
+import { useMatchMedia } from '@/shared/lib';
 
 export const AppLayout = () => {
+  const isDesktop = useMatchMedia('(max-width: 1023px)');
+
   return (
     <>
-      <Header />
+      {!isDesktop ? <HeaderDesktop /> : <HeaderMobile />}
 
       <main>
         <Outlet />

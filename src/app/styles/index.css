@@ -6,6 +6,7 @@
     --color-black: #100F0F;
 
     --color-primary: #4BED7B;
+    --color-primary-active: #3BDB6B;
     --color-accent: #A3F1BE;
     --color-light-accent: #D2ECE6;
 
@@ -20,33 +21,30 @@
     --radius-lg: 1.875rem;
     --radius-md: 1.625rem;
     --radius-sm: 1.25rem;
-
-    --font-sans: "Rubik";
-
-    --transition-duration: 0,2s;
 }
 
 @layer base {
+    @font-face {
+        font-family: "Rubik";
+        src: url("@/shared/assets/fonts/Rubik.woff2") format("woff2");
+        font-weight: 400 700;
+        font-style: normal;
+        font-display: swap;
+    }
+
     body{
-        font-family: var(--font-sans), sans-serif;
+        font-family: "Rubik", sans-serif;
         background-color: var(--color-white);
         font-size: 1rem;
     }
 
     h2, h3 {
         color: var(--color-black);
-        font-weight: 500;
-    }
-
-    input,
-    label,
-    button {
-        transition-duration: var(--transition-duration);
     }
 
     :focus-visible {
-        outline: 2px dashed var(--color-black);
-        outline-offset: 2px;
+        outline: 2px solid var(--color-black);
+        outline-offset: 4px;
         transition-duration: 0s !important;
     }
 }
