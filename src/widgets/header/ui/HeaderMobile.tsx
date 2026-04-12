@@ -18,12 +18,12 @@ export const HeaderMobile = () => {
                 return (
                   <li key={href} className={hiddenOnMobile ? 'hidden' : ''}>
                     <a
-                      className="flex items-center justify-center w-11 h-11"
+                      className="flex items-center justify-center w-10 h-10"
                       aria-label={label}
                       title={label}
                       href={href}
                     >
-                      <Icon className="text-dark-green" size={24} />
+                      <Icon className="text-dark-green" size={20} />
                     </a>
                   </li>
                 );
