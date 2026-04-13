@@ -1,38 +1,82 @@
 import { LOCATIONS } from '@/features/location-select/config/locations.ts';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 interface LocationSelectMenuProps {
   onClose: () => void;
   onSelect: (value: string) => void;
+  isOpen: boolean;
 }
 
-export const LocationSelectMenu = ({ onClose, onSelect }: LocationSelectMenuProps) => {
+export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelectMenuProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    inputRef.current?.focus();
+
+    const handleEscapeButtonClose = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleEscapeButtonClose);
+
+    return () => window.removeEventListener('keydown', handleEscapeButtonClose);
+  }, [isOpen, onClose]);
+
   return createPortal(
     <>
-      <div className="fixed inset-0 bg-black/20 backdrop-blur-sm select-none" onClick={onClose} />
-      <div className="absolute left-1/2 top-1/2 -translate-1/2 w-[400px] max-w-[400px] bg-white p-6 rounded-2xl select-text">
-        <header className="mb-10">
-          <h2 className="text-2xl">Выберете город</h2>
-        </header>
+      <div
+        className="fixed inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm select-none"
+        onClick={onClose}
+      >
+        <div
+          className="relative w-[400px] max-w-[400px] bg-white p-6 rounded-2xl select-text"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <header className="mb-6">
+            <h2 className="text-2xl">Выберете город</h2>
+          </header>
 
-        <button className="absolute top-4 right-4 cursor-pointer" type="button" onClick={onClose}>
-          <X className="text-dark-gray" />
-        </button>
+          <button
+            className="group absolute w-11 h-11 flex items-center justify-center top-4 right-4 cursor-pointer"
+            type="button"
+            onClick={onClose}
+          >
+            <X className="text-dark-gray duration-200 group-hover:text-black" />
+          </button>
 
-        <ul className="flex flex-col gap-2 overflow-y-auto scroll-smooth">
-          {LOCATIONS.map(({ label, value }) => (
-            <li className="hover:bg-gray" key={value}>
-              <button
-                onClick={() => onSelect(label)}
-                className="cursor-pointer w-full text-left py-2"
-                type="button"
-              >
-                {label}
-              </button>
-            </li>
-          ))}
-        </ul>
+          <label className="sr-only" htmlFor="city">
+            Искать город
+          </label>
+          <input
+            className=" w-full px-6 py-2 border border-dark-gray rounded-sm"
+            type="search"
+            id="city"
+            name=""
+            placeholder="Искать город"
+            ref={inputRef}
+          />
+
+          <ul className="flex flex-col gap-2 mt-10 max-h-106 overflow-y-auto scroll-smooth">
+            {LOCATIONS.map(({ label, value }) => (
+              <li className="hover:bg-gray" key={value}>
+                <button
+                  aria-label="Выбрать город"
+                  onClick={() => onSelect(label)}
+                  className="cursor-pointer w-full text-left py-2"
+                  type="button"
+                >
+                  {label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </>,
     document.body,

@@ -10,7 +10,7 @@ export const LOCATIONS: Location[] = [
   { label: 'Уфа', value: 'ufa' },
   { label: 'Санкт-Петербург', value: 'sankt-peterburg' },
   { label: 'Краснодар', value: 'krasnodar' },
-  { label: 'Тимашевск', value: 'timoshevsk' },
+  { label: 'Тимашевск', value: 'timashevsk' },
   { label: 'Адлер', value: 'adler' },
   { label: 'Сочи', value: 'sochi' },
 ];

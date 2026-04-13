@@ -59,7 +59,7 @@ export const HeaderDesktop = () => {
         </div>
       </header>
 
-      {isOpen && <LocationSelectMenu onClose={close} onSelect={handleSelectCity} />}
+      {isOpen && <LocationSelectMenu onClose={close} onSelect={handleSelectCity} isOpen />}
     </>
   );
 };
