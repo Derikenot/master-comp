@@ -1,11 +1,13 @@
 import { MapPin } from 'lucide-react';
 import { cn } from '@/shared/lib';
 
-interface LocationSelectorProps {
+interface LocationSelectButtonProps {
   className?: string;
+  label: string;
+  onClick: () => void;
 }
 
-export const LocationSelector = ({ className }: LocationSelectorProps) => {
+export const LocationSelectButton = ({ label, className, onClick }: LocationSelectButtonProps) => {
   return (
     <button
       className={cn(
@@ -13,9 +15,10 @@ export const LocationSelector = ({ className }: LocationSelectorProps) => {
         className,
       )}
       type="button"
+      onClick={onClick}
     >
       <MapPin className="text-dark-green" size={24} />
-      <span>Краснодар</span>
+      <span>{label}</span>
     </button>
   );
 };
