@@ -1,8 +1,7 @@
-import { LOCATIONS } from '@/features/location-select/config/locations.ts';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import * as React from 'react';
+import { useEffect } from 'react';
+import { useKeyboardListNavigation } from '@/shared/lib';
 
 interface LocationSelectMenuProps {
   onClose: () => void;
@@ -11,8 +10,17 @@ interface LocationSelectMenuProps {
 }
 
 export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelectMenuProps) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
-  const [searchQuery, setSearchQuery] = useState('');
+  const {
+    searchQuery,
+    setSearchQuery,
+    handleInputFocus,
+    inputRef,
+    listRef,
+    handleInputKeyDown,
+    handleListKeyDown,
+    filteredCities,
+    buttonRefs,
+  } = useKeyboardListNavigation();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -28,67 +36,7 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
     window.addEventListener('keydown', handleEscapeButtonClose);
 
     return () => window.removeEventListener('keydown', handleEscapeButtonClose);
-  }, [isOpen]);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
-  const listRef = useRef<HTMLUListElement>(null);
-
-  const filteredCities =
-    searchQuery.trim().length > 0
-      ? LOCATIONS.filter((loc) =>
-          loc.label.toLowerCase().includes(searchQuery.trim().toLowerCase()),
-        )
-      : LOCATIONS;
-
-  const focusCity = (index: number) => {
-    const city = filteredCities[index];
-    if (city) {
-      buttonRefs.current.get(city.value)?.focus();
-    }
-  };
-
-  const handleListKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      const nextIndex = activeIndex + 1 === filteredCities.length ? 0 : activeIndex + 1;
-      if (nextIndex === 0) {
-        setActiveIndex(-1);
-        inputRef.current?.focus();
-        return;
-      }
-      setActiveIndex(nextIndex);
-      focusCity(nextIndex);
-    }
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      const nextIndex = activeIndex - 1 < 0 ? filteredCities.length - 1 : activeIndex - 1;
-      if (nextIndex === filteredCities.length - 1) {
-        setActiveIndex(-1);
-        inputRef.current?.focus();
-        return;
-      }
-      setActiveIndex(nextIndex);
-      focusCity(nextIndex);
-    }
-  };
-
-  const handleInputKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowDown') {
-      if (buttonRefs.current.size > 0) {
-        setActiveIndex(0);
-        focusCity(0);
-      }
-    }
-
-    if (e.key === 'ArrowUp') {
-      if (buttonRefs.current.size > 0) {
-        const nextIndex = filteredCities.length - 1;
-        setActiveIndex(nextIndex);
-        focusCity(nextIndex);
-      }
-    }
-  };
+  }, [isOpen, onClose]);
 
   return createPortal(
     <>
@@ -126,7 +74,7 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
               setSearchQuery(e.target.value);
             }}
             onKeyDown={(e) => handleInputKeyDown(e)}
-            onFocus={() => setActiveIndex(0)}
+            onFocus={handleInputFocus}
             ref={inputRef}
           />
 
