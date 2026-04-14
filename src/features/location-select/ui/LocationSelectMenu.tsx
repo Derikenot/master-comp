@@ -11,11 +11,8 @@ interface LocationSelectMenuProps {
 }
 
 export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelectMenuProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const listRef = useRef<HTMLUListElement>(null);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (!isOpen) return;
@@ -33,30 +30,63 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
     return () => window.removeEventListener('keydown', handleEscapeButtonClose);
   }, [isOpen]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const listRef = useRef<HTMLUListElement>(null);
+
+  const filteredCities =
+    searchQuery.trim().length > 0
+      ? LOCATIONS.filter((loc) =>
+          loc.label.toLowerCase().includes(searchQuery.trim().toLowerCase()),
+        )
+      : LOCATIONS;
+
+  const focusCity = (index: number) => {
+    const city = filteredCities[index];
+    if (city) {
+      buttonRefs.current.get(city.value)?.focus();
+    }
+  };
+
   const handleListKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      const nextIndex = activeIndex + 1 === LOCATIONS.length ? 0 : activeIndex + 1;
+      const nextIndex = activeIndex + 1 === filteredCities.length ? 0 : activeIndex + 1;
       if (nextIndex === 0) {
-        setActiveIndex(0);
+        setActiveIndex(-1);
         inputRef.current?.focus();
         return;
       }
-
       setActiveIndex(nextIndex);
-      buttonRefs.current[nextIndex]?.focus();
+      focusCity(nextIndex);
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const nextIndex = activeIndex - 1 < 0 ? filteredCities.length - 1 : activeIndex - 1;
+      if (nextIndex === filteredCities.length - 1) {
+        setActiveIndex(-1);
+        inputRef.current?.focus();
+        return;
+      }
+      setActiveIndex(nextIndex);
+      focusCity(nextIndex);
+    }
+  };
+
+  const handleInputKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown') {
+      if (buttonRefs.current.size > 0) {
+        setActiveIndex(0);
+        focusCity(0);
+      }
     }
 
     if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      const nextIndex = activeIndex - 1 < 0 ? LOCATIONS.length - 1 : activeIndex - 1;
-      if (nextIndex === LOCATIONS.length - 1) {
-        setActiveIndex(0);
-        inputRef.current?.focus();
-        return;
+      if (buttonRefs.current.size > 0) {
+        const nextIndex = filteredCities.length - 1;
+        setActiveIndex(nextIndex);
+        focusCity(nextIndex);
       }
-      setActiveIndex(nextIndex);
-      buttonRefs.current[nextIndex]?.focus();
     }
   };
 
@@ -91,17 +121,13 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
             id="city"
             name=""
             placeholder="Искать город"
-            ref={inputRef}
-            onKeyDown={(e) => {
-              if (e.key === 'ArrowDown') {
-                setActiveIndex(0);
-                buttonRefs.current[0]?.focus();
-              }
-              if (e.key === 'ArrowUp') {
-                setActiveIndex(LOCATIONS.length - 1);
-                buttonRefs.current[LOCATIONS.length - 1]?.focus();
-              }
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
             }}
+            onKeyDown={(e) => handleInputKeyDown(e)}
+            onFocus={() => setActiveIndex(0)}
+            ref={inputRef}
           />
 
           <ul
@@ -109,21 +135,29 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
             ref={listRef}
             onKeyDown={(e) => handleListKeyDown(e)}
           >
-            {LOCATIONS.map(({ label, value }, index) => (
-              <li className="hover:bg-gray" key={value}>
-                <button
-                  aria-label="Выбрать город"
-                  onClick={() => onSelect(label)}
-                  className="cursor-pointer w-full text-left py-2"
-                  type="button"
-                  ref={(el) => {
-                    buttonRefs.current[index] = el;
-                  }}
-                >
-                  {label}
-                </button>
-              </li>
-            ))}
+            {filteredCities.length > 0 ? (
+              filteredCities.map(({ label, value }) => (
+                <li className="hover:bg-gray" key={value}>
+                  <button
+                    aria-label="Выбрать город"
+                    onClick={() => onSelect(label)}
+                    className="cursor-pointer w-full text-left py-2"
+                    type="button"
+                    ref={(el) => {
+                      if (el) {
+                        buttonRefs.current.set(value, el);
+                      } else {
+                        buttonRefs.current.delete(value);
+                      }
+                    }}
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))
+            ) : (
+              <div>Резльтьатов не найдено</div>
+            )}
           </ul>
         </div>
       </div>
