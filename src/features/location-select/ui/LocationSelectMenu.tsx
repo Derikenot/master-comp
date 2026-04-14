@@ -31,12 +31,18 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
     window.addEventListener('keydown', handleEscapeButtonClose);
 
     return () => window.removeEventListener('keydown', handleEscapeButtonClose);
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   const handleListKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       const nextIndex = activeIndex + 1 === LOCATIONS.length ? 0 : activeIndex + 1;
+      if (nextIndex === 0) {
+        setActiveIndex(0);
+        inputRef.current?.focus();
+        return;
+      }
+
       setActiveIndex(nextIndex);
       buttonRefs.current[nextIndex]?.focus();
     }
@@ -44,6 +50,11 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       const nextIndex = activeIndex - 1 < 0 ? LOCATIONS.length - 1 : activeIndex - 1;
+      if (nextIndex === LOCATIONS.length - 1) {
+        setActiveIndex(0);
+        inputRef.current?.focus();
+        return;
+      }
       setActiveIndex(nextIndex);
       buttonRefs.current[nextIndex]?.focus();
     }
@@ -81,6 +92,16 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
             name=""
             placeholder="Искать город"
             ref={inputRef}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowDown') {
+                setActiveIndex(0);
+                buttonRefs.current[0]?.focus();
+              }
+              if (e.key === 'ArrowUp') {
+                setActiveIndex(LOCATIONS.length - 1);
+                buttonRefs.current[LOCATIONS.length - 1]?.focus();
+              }
+            }}
           />
 
           <ul
