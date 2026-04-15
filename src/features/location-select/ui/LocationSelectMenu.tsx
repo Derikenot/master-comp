@@ -2,6 +2,7 @@ import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { useEffect } from 'react';
 import { useKeyboardListNavigation } from '@/shared/lib';
+import { LOCATIONS } from '@/features/location-select/config/locations.ts';
 
 interface LocationSelectMenuProps {
   onClose: () => void;
@@ -11,16 +12,20 @@ interface LocationSelectMenuProps {
 
 export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelectMenuProps) => {
   const {
+    inputRef,
     searchQuery,
     setSearchQuery,
-    handleInputFocus,
-    inputRef,
-    listRef,
     handleInputKeyDown,
+    handleInputFocus,
+    listRef,
     handleListKeyDown,
-    filteredCities,
-    buttonRefs,
-  } = useKeyboardListNavigation();
+    filteredItems,
+    itemRefs,
+  } = useKeyboardListNavigation({
+    items: LOCATIONS,
+    getItemKey: (city) => city.value,
+    filterFn: (city, query) => city.label.toLowerCase().includes(query),
+  });
 
   useEffect(() => {
     if (!isOpen) return;
@@ -39,77 +44,75 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
   }, [isOpen, onClose]);
 
   return createPortal(
-    <>
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm select-none"
+      onClick={onClose}
+    >
       <div
-        className="fixed inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm select-none"
-        onClick={onClose}
+        className="relative w-100 max-w-100 bg-white p-6 rounded-2xl select-text"
+        onClick={(e) => e.stopPropagation()}
       >
-        <div
-          className="relative w-[400px] max-w-[400px] bg-white p-6 rounded-2xl select-text"
-          onClick={(e) => e.stopPropagation()}
+        <header className="mb-6">
+          <h2 className="text-2xl">Выберете город</h2>
+        </header>
+
+        <button
+          className="group absolute w-11 h-11 flex items-center justify-center top-4 right-4 cursor-pointer"
+          type="button"
+          onClick={onClose}
         >
-          <header className="mb-6">
-            <h2 className="text-2xl">Выберете город</h2>
-          </header>
+          <X className="text-dark-gray duration-200 group-hover:text-black" />
+        </button>
 
-          <button
-            className="group absolute w-11 h-11 flex items-center justify-center top-4 right-4 cursor-pointer"
-            type="button"
-            onClick={onClose}
-          >
-            <X className="text-dark-gray duration-200 group-hover:text-black" />
-          </button>
+        <label className="sr-only" htmlFor="city">
+          Искать город
+        </label>
+        <input
+          className=" w-full px-6 py-2 border border-dark-gray rounded-sm"
+          type="search"
+          id="city"
+          name=""
+          placeholder="Искать город"
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+          }}
+          onKeyDown={(e) => handleInputKeyDown(e)}
+          onFocus={handleInputFocus}
+          ref={inputRef}
+        />
 
-          <label className="sr-only" htmlFor="city">
-            Искать город
-          </label>
-          <input
-            className=" w-full px-6 py-2 border border-dark-gray rounded-sm"
-            type="search"
-            id="city"
-            name=""
-            placeholder="Искать город"
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-            }}
-            onKeyDown={(e) => handleInputKeyDown(e)}
-            onFocus={handleInputFocus}
-            ref={inputRef}
-          />
-
-          <ul
-            className="flex flex-col gap-2 mt-10 max-h-106 overflow-y-auto scroll-smooth"
-            ref={listRef}
-            onKeyDown={(e) => handleListKeyDown(e)}
-          >
-            {filteredCities.length > 0 ? (
-              filteredCities.map(({ label, value }) => (
-                <li className="hover:bg-gray" key={value}>
-                  <button
-                    aria-label="Выбрать город"
-                    onClick={() => onSelect(label)}
-                    className="cursor-pointer w-full text-left py-2"
-                    type="button"
-                    ref={(el) => {
-                      if (el) {
-                        buttonRefs.current.set(value, el);
-                      } else {
-                        buttonRefs.current.delete(value);
-                      }
-                    }}
-                  >
-                    {label}
-                  </button>
-                </li>
-              ))
-            ) : (
-              <div>Резльтьатов не найдено</div>
-            )}
-          </ul>
-        </div>
+        <ul
+          className="flex flex-col gap-2 mt-10 max-h-106 overflow-y-auto scroll-smooth"
+          ref={listRef}
+          onKeyDown={(e) => handleListKeyDown(e)}
+        >
+          {filteredItems.length > 0 ? (
+            filteredItems.map(({ label, value }) => (
+              <li className="hover:bg-gray" key={value}>
+                <button
+                  aria-label="Выбрать город"
+                  onClick={() => onSelect(label)}
+                  className="cursor-pointer w-full text-left py-2"
+                  type="button"
+                  ref={(el) => {
+                    if (el) {
+                      itemRefs.current.set(value, el);
+                    } else {
+                      itemRefs.current.delete(value);
+                    }
+                  }}
+                >
+                  {label}
+                </button>
+              </li>
+            ))
+          ) : (
+            <div>Результатов не найдено</div>
+          )}
+        </ul>
       </div>
-    </>,
+    </div>,
     document.body,
   );
 };
