@@ -2,7 +2,8 @@ import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { useEffect } from 'react';
 import { useKeyboardListNavigation } from '@/shared/lib';
-import { LOCATIONS } from '@/features/location-select/config/locations.ts';
+import { type Location, LOCATIONS } from '@/features/location-select/config/locations.ts';
+import { useLocationSearch } from '@/features/location-select';
 
 interface LocationSelectMenuProps {
   onClose: () => void;
@@ -11,21 +12,17 @@ interface LocationSelectMenuProps {
 }
 
 export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelectMenuProps) => {
-  const {
-    inputRef,
-    searchQuery,
-    setSearchQuery,
-    handleInputKeyDown,
-    handleInputFocus,
-    listRef,
-    handleListKeyDown,
-    filteredItems,
-    itemRefs,
-  } = useKeyboardListNavigation({
+  const { searchQuery, setSearchQuery, filteredItems } = useLocationSearch({
     items: LOCATIONS,
-    getItemKey: (city) => city.value,
     filterFn: (city, query) => city.label.toLowerCase().includes(query),
   });
+
+  const { inputRef, handleInputKeyDown, handleInputFocus, listRef, handleListKeyDown, itemRefs } =
+    useKeyboardListNavigation({
+      items: filteredItems,
+      searchQuery,
+      getItemKey: (city: Location) => city.value,
+    });
 
   useEffect(() => {
     if (!isOpen) return;
@@ -45,6 +42,9 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
 
   return createPortal(
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="dialog-title"
       className="fixed inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm select-none"
       onClick={onClose}
     >
@@ -53,7 +53,9 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
         onClick={(e) => e.stopPropagation()}
       >
         <header className="mb-6">
-          <h2 className="text-2xl">Выберете город</h2>
+          <h2 id="dialog-title" className="text-2xl">
+            Выберите город
+          </h2>
         </header>
 
         <button
@@ -108,7 +110,7 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
               </li>
             ))
           ) : (
-            <div>Результатов не найдено</div>
+            <li>Результатов не найдено</li>
           )}
         </ul>
       </div>

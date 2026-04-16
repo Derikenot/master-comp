@@ -1,32 +1,22 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import * as React from 'react';
 
 interface UseKeyboardListNavigationOptions<T> {
   items: T[];
   getItemKey: (item: T) => string;
-  filterFn?: (item: T, query: string) => boolean;
+  searchQuery: string;
 }
 
 export const useKeyboardListNavigation = <T>({
   items,
   getItemKey,
-  filterFn,
+  searchQuery,
 }: UseKeyboardListNavigationOptions<T>) => {
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const itemRefs = useRef<Map<string, HTMLElement>>(new Map());
-
-  const filteredItems = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-    if (query.length === 0 || !filterFn) {
-      return items;
-    }
-
-    return items.filter((item) => filterFn(item, query));
-  }, [items, searchQuery, filterFn]);
 
   useEffect(() => {
     setActiveIndex(-1);
@@ -34,21 +24,21 @@ export const useKeyboardListNavigation = <T>({
 
   const focusItem = useCallback(
     (index: number) => {
-      const item = filteredItems[index];
+      const item = items[index];
       if (item) {
         itemRefs.current.get(getItemKey(item))?.focus();
       }
     },
-    [filteredItems, getItemKey],
+    [items, getItemKey],
   );
 
   const handleListKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (filteredItems.length === 0) return;
+      if (items.length === 0) return;
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        if (activeIndex === filteredItems.length - 1) {
+        if (activeIndex === items.length - 1) {
           setActiveIndex(-1);
           inputRef.current?.focus();
           return;
@@ -69,12 +59,12 @@ export const useKeyboardListNavigation = <T>({
         focusItem(nextIndex);
       }
     },
-    [filteredItems.length, focusItem],
+    [items.length, focusItem, activeIndex],
   );
 
   const handleInputKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (filteredItems.length === 0) return;
+      if (items.length === 0) return;
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -84,12 +74,12 @@ export const useKeyboardListNavigation = <T>({
 
       if (e.key === 'ArrowUp') {
         e.preventDefault();
-        const nextIndex = filteredItems.length - 1;
+        const nextIndex = items.length - 1;
         setActiveIndex(nextIndex);
         focusItem(nextIndex);
       }
     },
-    [filteredItems.length, focusItem],
+    [items.length, focusItem],
   );
 
   const handleInputFocus = useCallback(() => {
@@ -97,14 +87,11 @@ export const useKeyboardListNavigation = <T>({
   }, []);
 
   return {
-    searchQuery,
-    setSearchQuery,
     handleInputFocus,
     inputRef,
     listRef,
     handleInputKeyDown,
     handleListKeyDown,
-    filteredItems,
     itemRefs,
   };
 };
