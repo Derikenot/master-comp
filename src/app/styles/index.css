@@ -1,4 +1,13 @@
 @import "tailwindcss";
+@import 'swiper/css';
+
+.swiper-wrapper {
+    align-items: stretch;
+}
+
+.swiper-slide {
+    height: auto;
+}
 
 @theme {
 
