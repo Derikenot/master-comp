@@ -1,0 +1,152 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Видеокарта Gigabyte RTX3060 WINDFORCE OC 12GB",
+      "category": "videocards",
+      "price": 25999,
+      "oldPrice": 31999,
+      "manufacturer": "Gigabyte",
+      "memory": 8,
+      "rating": 4.4,
+      "review": 380,
+      "image": "/images/products/videocards/gigabyte-rtx-3060.webp",
+      "specs": [
+        { "key": "model", "label": "Модель", "value": "GeForce RTX 3060 " },
+        { "key": "processor-frequency", "label": "Частота процессора", "value": "1830 МГц" },
+        { "key": "memory-type", "label": "Тип памяти", "value": "GDDR6" },
+        { "key": "memory-bus", "label": "Шина памяти", "value": "128 бит" },
+        { "key": "memory-frequency", "label": "Частота видеопамяти", "value": "17000 МГц" },
+        { "key": "length", "label": "Длина", "value": "199 ММ " }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Материнская плата Gigabyte X870 EAGLE WIFI7",
+      "category": "motherboards",
+      "price": 17900,
+      "rating": 4.8,
+      "reviews": 980,
+      "image": "/images/products/motherboards/gigabyte-x870-motherboard.webp",
+      "specs": [
+        { "key": "socket", "label": "Сокет", "value": "AM5" },
+        { "key": "chipset", "label": "Чипсет", "value": "X870" },
+        { "key": "memory-type", "label": "Тип памяти", "value": "DDR5" },
+        { "key": "wifi", "label": "Wi-Fi", "value": "Есть" }
+      ]
+    },
+
+    {
+      "id": 3,
+      "title": "Видеокарта Gigabyte RTX4060 WINDFORCE OC 8GB",
+      "category": "videocards",
+      "price": 32600,
+      "rating": 5.0,
+      "reviews": 1510,
+      "memory": 8,
+      "manufacturer": "Gigabyte",
+      "image": "/images/products/videocards/gigabyte-rtx-4060.webp",
+      "specs": [
+        { "key": "model", "label": "Модель", "value": "GeForce RTX 4060" },
+        { "key": "memory", "label": "Объём памяти", "value": "8 ГБ" },
+        { "key": "memory-type", "label": "Тип памяти", "value": "GDDR6" },
+        { "key": "bus", "label": "Шина памяти", "value": "128 бит" }
+      ]
+    },
+
+    {
+      "id": 4,
+      "title": "Игровая мышь Logitech G703 100–25600 DPI",
+      "category": "mouse",
+      "price": 7700,
+      "rating": 4.9,
+      "reviews": 1050,
+      "image": "/images/products/mouses/logitech-g703-mouse.webp",
+      "specs": [
+        { "key": "dpi", "label": "Чувствительность", "value": "100–25600 DPI" },
+        { "key": "connection", "label": "Тип подключения", "value": "Беспроводная" },
+        { "key": "sensor", "label": "Сенсор", "value": "HERO" }
+      ]
+    },
+
+    {
+      "id": 5,
+      "title": "Монитор Digma Overdrive 27A510F 27, 1920×1080, VA, 165Гц",
+      "category": "monitors",
+      "price": 14300,
+      "rating": 4.8,
+      "reviews": 710,
+      "image": "/images/products/monitors/digma-27a510f-monitor.webp",
+      "specs": [
+        { "key": "diagonal", "label": "Диагональ", "value": "27" },
+        { "key": "resolution", "label": "Разрешение", "value": "1920×1080" },
+        { "key": "matrix", "label": "Тип матрицы", "value": "VA" },
+        { "key": "refresh-rate", "label": "Частота обновления", "value": "165 Гц" }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Клавиатура проводная Razer Ornata V3 X black",
+      "category": "keyboards",
+      "price": 6150,
+      "rating": 4.4,
+      "reviews": 35,
+      "image": "/images/products/keyboards/razer-ornata-v3x.webp",
+      "specs": [
+        { "key": "type", "label": "Тип", "value": "Проводная" },
+        { "key": "switch-type", "label": "Тип клавиш", "value": "Мембранные" },
+        { "key": "backlight", "label": "Подсветка", "value": "RGB" }
+      ]
+    },
+
+    {
+      "id": 7,
+      "title": "Процессор AMD Threadripper 9000 на Zen 5",
+      "category": "cpu",
+      "price": 15590,
+      "rating": 4.9,
+      "reviews": 151,
+      "image": "/images/products/cpu/amd-threadripper-9000.webp",
+      "specs": [
+        { "key": "cores", "label": "Количество ядер", "value": "16" },
+        { "key": "threads", "label": "Потоки", "value": "32" },
+        { "key": "architecture", "label": "Архитектура", "value": "Zen 5" }
+      ]
+    },
+
+    {
+      "id": 8,
+      "title": "Игровая мышь Razer DeathAdder Essential USB",
+      "category": "mouse",
+      "price": 14350,
+      "rating": 4.7,
+      "reviews": 41,
+      "image": "/images/products/mouse/razer-deathadder-essential.webp",
+      "specs": [
+        { "key": "dpi", "label": "Чувствительность", "value": "6400 DPI" },
+        { "key": "connection", "label": "Подключение", "value": "Проводная" },
+        { "key": "sensor", "label": "Сенсор", "value": "Optical" }
+      ]
+    },
+
+    {
+      "id": 9,
+      "title": "Игровой монитор Digma 27\" Overdrive 27A510F 1920×1080",
+      "category": "monitors",
+      "price": 13800,
+      "rating": 4.5,
+      "reviews": 50,
+      "image": "/images/products/monitors/digma-27-overdrive.webp",
+      "specs": [
+        { "key": "diagonal", "label": "Диагональ", "value": "27" },
+        { "key": "resolution", "label": "Разрешение", "value": "1920×1080" },
+        { "key": "refresh-rate", "label": "Частота", "value": "165 Гц" },
+        { "key": "matrix", "label": "Тип матрицы", "value": "VA" }
+      ]
+    }
+  ],
+  "categories": [
+    { "id": "videocards", "name": "Видеокарты" },
+    { "id": "monitors", "name": "Мониторы" }
+  ]
+}
