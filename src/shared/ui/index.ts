@@ -4,3 +4,4 @@ export { NavLink } from './nav-link/NavLink';
 export { Slider } from './slider/Slider';
 export { BannerShapeTop } from './icons/BannerShapeTop';
 export { SliderButton } from './slider-button/SliderButton';
+export { PaginationDot } from './pagination-dot/PaginationDot';

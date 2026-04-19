@@ -22,7 +22,7 @@ export const HeroBanner = ({ banner }: HeroBannerProps) => {
           {title}
         </h2>
         <p className="text-sm md:text-base lg:text-lg tracking-tight max-w-100">{description}</p>
-        <ButtonLink className="mt-6 lg:mt-10 mb-2" to={buttonHref}>
+        <ButtonLink className="mt-6 mb-2" to={buttonHref}>
           {buttonLabel}
         </ButtonLink>
       </div>
