@@ -1,22 +1,20 @@
 import { ProductHeader, ProductSlider } from '@/widgets/product-section';
-import { useProducts } from '@/widgets/product-section/model/useProducts.ts';
+import { useProducts, type UseProductsProps } from '@/widgets/product-section/model/useProducts.ts';
+import { ProductCard } from '@/entities/product';
 
 interface ProductSectionProps {
   title: string;
+  params: UseProductsProps;
 }
 
-export const ProductSection = ({ title }: ProductSectionProps) => {
-  const { products, isLoading, loadMoreProducts, hasMore } = useProducts({
-    sort: 'rating',
-    limit: 4,
-    order: 'desc',
-  });
+export const ProductSection = ({ title, params }: ProductSectionProps) => {
+  const { products } = useProducts(params);
 
   return (
     <section>
       <div className="fluid-container">
         <ProductHeader title={title} />
-        <ProductSlider items={products} renderItem={} />
+        <ProductSlider items={products} renderItem={(p) => <ProductCard product={p} />} />
       </div>
     </section>
   );

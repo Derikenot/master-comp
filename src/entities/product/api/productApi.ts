@@ -11,7 +11,9 @@ export const getProducts = async (searchQueryParams?: string): Promise<Product[]
     throw new Error('Failed to fetch products');
   }
 
-  return res.json();
+  const data = (await res.json()) as { data: Product[] };
+
+  return data.data;
 };
 
 export const getProductById = async (id: string): Promise<Product> => {

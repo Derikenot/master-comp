@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { Product } from '@/entities/product/model/types.ts';
 import { getProducts } from '@/entities/product';
 
-interface UseProductsProps {
+export interface UseProductsProps {
   sort?: string;
   order?: 'asc' | 'desc';
   limit?: number;
@@ -17,13 +17,13 @@ export const useProducts = (params: UseProductsProps) => {
   const searchQueryParams = useMemo(() => {
     const searchParams = new URLSearchParams();
 
-    const paramsArray = Object.entries(params);
+    if (params.sort) {
+      searchParams.append('_sort', params.order === 'desc' ? `-${params.sort}` : params.sort);
+    }
 
-    paramsArray.forEach(([key, value]) => {
-      if (value === null || value === undefined) return;
-
-      searchParams.append(`_${key}`, String(value));
-    });
+    if (params.limit !== null && params.limit !== undefined) {
+      searchParams.append('_per_page', String(params.limit));
+    }
 
     searchParams.append('_page', String(page));
 
@@ -35,9 +35,14 @@ export const useProducts = (params: UseProductsProps) => {
       try {
         setIsLoading(true);
         const data = await getProducts(searchQueryParams);
+
         if (data.length === 0) {
           setHasMore(false);
           return;
+        }
+
+        if (data.length < (params.limit ?? Infinity)) {
+          setHasMore(false);
         }
 
         if (page > 1) {
