@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Видеокарта Gigabyte RTX3060 WINDFORCE OC 12GB",
       "category": "videocards",
       "price": 25999,
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Материнская плата Gigabyte X870 EAGLE WIFI7",
       "category": "motherboards",
       "price": 17900,
@@ -35,9 +35,8 @@
         { "key": "wifi", "label": "Wi-Fi", "value": "Есть" }
       ]
     },
-
     {
-      "id": 3,
+      "id": "3",
       "title": "Видеокарта Gigabyte RTX4060 WINDFORCE OC 8GB",
       "category": "videocards",
       "price": 32600,
@@ -53,9 +52,8 @@
         { "key": "bus", "label": "Шина памяти", "value": "128 бит" }
       ]
     },
-
     {
-      "id": 4,
+      "id": "4",
       "title": "Игровая мышь Logitech G703 100–25600 DPI",
       "category": "mouse",
       "price": 7700,
@@ -68,9 +66,8 @@
         { "key": "sensor", "label": "Сенсор", "value": "HERO" }
       ]
     },
-
     {
-      "id": 5,
+      "id": "5",
       "title": "Монитор Digma Overdrive 27A510F 27, 1920×1080, VA, 165Гц",
       "category": "monitors",
       "price": 14300,
@@ -85,7 +82,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": "6",
       "title": "Клавиатура проводная Razer Ornata V3 X black",
       "category": "keyboards",
       "price": 6150,
@@ -100,7 +97,7 @@
     },
 
     {
-      "id": 7,
+      "id": "7",
       "title": "Процессор AMD Threadripper 9000 на Zen 5",
       "category": "cpu",
       "price": 15590,
@@ -115,7 +112,7 @@
     },
 
     {
-      "id": 8,
+      "id": "8",
       "title": "Игровая мышь Razer DeathAdder Essential USB",
       "category": "mouse",
       "price": 14350,
@@ -130,7 +127,7 @@
     },
 
     {
-      "id": 9,
+      "id": "9",
       "title": "Игровой монитор Digma 27\" Overdrive 27A510F 1920×1080",
       "category": "monitors",
       "price": 13800,

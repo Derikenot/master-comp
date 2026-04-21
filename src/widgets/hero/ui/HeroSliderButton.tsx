@@ -6,7 +6,10 @@ export const HeroSliderButton = ({ dir, classname, onClick }: SliderButtonProps)
   return (
     <SliderButton
       dir={dir}
-      classname={cn('bg-primary p-1 rounded-full', classname)}
+      classname={cn(
+        'flex items-center justify-center w-11 h-11 bg-primary p-1 rounded-full transition duration-200 hover:bg-gray active:bg-primary',
+        classname,
+      )}
       onClick={onClick}
     />
   );

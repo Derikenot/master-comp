@@ -1,6 +1,6 @@
 import { Slider } from '@/shared/ui';
 import { BANNERS } from '@/widgets/hero/config/banners.ts';
-import { HeroBanner, HeroPagination } from '@/widgets/hero';
+import { HeroBanner, HeroControls, HeroPagination } from '@/widgets/hero';
 import { SwiperSlide } from 'swiper/react';
 
 export const Hero = () => {
@@ -14,6 +14,7 @@ export const Hero = () => {
             </SwiperSlide>
           ))}
 
+          <HeroControls />
           <HeroPagination />
         </Slider>
       </div>

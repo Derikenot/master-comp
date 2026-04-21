@@ -1,14 +1,11 @@
 import type { Banner } from '@/widgets/hero/config/banners.ts';
 import { BannerShapeTop, ButtonLink } from '@/shared/ui';
-import { HeroSliderButton } from '@/widgets/hero';
-import { useSwiper } from 'swiper/react';
 
 interface HeroBannerProps {
   banner: Banner;
 }
 
 export const HeroBanner = ({ banner }: HeroBannerProps) => {
-  const swiper = useSwiper();
   const { imageHref, title, description, buttonLabel, buttonHref } = banner;
 
   return (
@@ -26,17 +23,6 @@ export const HeroBanner = ({ banner }: HeroBannerProps) => {
           {buttonLabel}
         </ButtonLink>
       </div>
-
-      <HeroSliderButton
-        dir="left"
-        classname="absolute left-3 top-1/2 -translate-y-1/2"
-        onClick={() => swiper.slidePrev()}
-      />
-      <HeroSliderButton
-        dir="right"
-        classname="absolute right-3 top-1/2 -translate-y-1/2 "
-        onClick={() => swiper.slideNext()}
-      />
     </div>
   );
 };
