@@ -1,9 +1,18 @@
 import { Slider } from '@/shared/ui';
+import type { ReactNode } from 'react';
+import { SwiperSlide } from 'swiper/react';
 
-export const ProductSlider = () => {
+interface ProductSliderProps<T> {
+  items: T[];
+  renderItem: (item: T) => ReactNode;
+}
+
+export const ProductSlider = <T,>({ items, renderItem }: ProductSliderProps<T>) => {
   return (
     <Slider spaceBetween={24} slidesPerView={4}>
-      {'pap'}
+      {items.map((item, index) => (
+        <SwiperSlide key={index}>{renderItem(item)}</SwiperSlide>
+      ))}
     </Slider>
   );
 };
