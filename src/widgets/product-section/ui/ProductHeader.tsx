@@ -10,15 +10,23 @@ interface ProductHeaderProps {
 export const ProductHeader = ({ title, swiperRef }: ProductHeaderProps) => {
   const handleNext = () => {
     if (!swiperRef.current) return;
+
+    swiperRef.current.slideTo(swiperRef.current.activeIndex + 1);
+  };
+
+  const handlePrev = () => {
+    if (!swiperRef.current) return;
+
+    swiperRef.current.slideTo(swiperRef.current.activeIndex - 1);
   };
 
   return (
-    <header className="flex items-center justify-between gap-4">
+    <header className="flex items-center justify-between gap-4 mb-8">
       <h2 className="text-[26px] font-medium">{title}</h2>
 
-      <div className="flex gap-2">
-        <ProductSliderButton dir="left" onClick={() => console.log('Лево')} />
-        <ProductSliderButton dir="right" onClick={() => console.log('Право')} />
+      <div className="gap-2 hidden md:flex">
+        <ProductSliderButton dir="left" onClick={handlePrev} />
+        <ProductSliderButton dir="right" onClick={handleNext} />
       </div>
     </header>
   );

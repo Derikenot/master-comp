@@ -12,7 +12,7 @@ export const Button = ({ children, type = 'button', className, ...props }: Butto
     <button
       type={type}
       className={cn(
-        'px-8 py-2.5 bg-primary text-black rounded-md cursor-pointer duration-200 hover:bg-white hover:ring-1 hover:ring-primary active:bg-primary-active',
+        'px-8 py-2.5 bg-primary font-medium text-black rounded-md cursor-pointer duration-200 hover:bg-white hover:ring-1 hover:ring-primary active:bg-primary-active',
         className,
       )}
       {...props}

@@ -4,7 +4,7 @@ import { ProductSection } from '@/widgets/product-section';
 const TOP_PRODUCTS_PARAMS = {
   sort: 'rating',
   order: 'desc',
-  limit: 4,
+  limit: 8,
 } as const;
 
 export const Home = () => {

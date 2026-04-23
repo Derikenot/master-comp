@@ -22,9 +22,23 @@ export const ProductSlider = <T,>({
       slidesPerView={4}
       onSwiper={(swiper) => (swiperRef.current = swiper)}
       onSlideChange={(swiper) => {
-        if (swiper.activeIndex === items.length - 2) {
+        if (
+          swiper.activeIndex + Math.ceil(Number(swiper.params.slidesPerView)) >=
+          items.length - 1
+        ) {
           handleLoadSlides();
         }
+      }}
+      breakpoints={{
+        1024: {
+          slidesPerView: 4,
+        },
+        768: {
+          slidesPerView: 2.6,
+        },
+        0: {
+          slidesPerView: 1.75,
+        },
       }}
     >
       {items.map((item, index) => (
