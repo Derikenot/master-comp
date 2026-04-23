@@ -9,7 +9,7 @@
       "manufacturer": "Gigabyte",
       "memory": 8,
       "rating": 4.4,
-      "review": 380,
+      "reviews": 380,
       "imageHref": "/images/products/videocards/gigabyte-rtx-3060.webp",
       "specs": [
         { "key": "model", "label": "Модель", "value": "GeForce RTX 3060 " },
@@ -118,7 +118,7 @@
       "price": 14350,
       "rating": 4.7,
       "reviews": 41,
-      "imageHref": "/images/products/mouse/razer-deathadder-essential.webp",
+      "imageHref": "/images/products/mouses/razer-deathadder-essential.webp",
       "specs": [
         { "key": "dpi", "label": "Чувствительность", "value": "6400 DPI" },
         { "key": "connection", "label": "Подключение", "value": "Проводная" },
@@ -139,6 +139,57 @@
         { "key": "resolution", "label": "Разрешение", "value": "1920×1080" },
         { "key": "refresh-rate", "label": "Частота", "value": "165 Гц" },
         { "key": "matrix", "label": "Тип матрицы", "value": "VA" }
+      ]
+    },
+
+    {
+      "id": "10",
+      "title": "Оперативная память XPG Lancer RGB DDR5 16GB (2x8GB) 5600MHz",
+      "category": "ram",
+      "price": 10999,
+      "oldPrice": 17999,
+      "rating": 4.8,
+      "reviews": 980,
+      "imageHref": "/images/products/ram/xpg-lancer-ram.webp",
+      "specs": [
+        { "key": "capacity", "label": "Объем", "value": "32 ГБ" },
+        { "key": "type", "label": "Тип памяти", "value": "DDR5" },
+        { "key": "frequency", "label": "Частота", "value": "5600 МГц" },
+        { "key": "form-factor", "label": "Форм-фактор", "value": "DIMM" },
+        { "key": "voltage", "label": "Напряжение", "value": "1.25 В" }
+      ]
+    },
+
+    {
+      "id": "11",
+      "title": "Монитор игровой Thunderobot Light Saber 24F180",
+      "category": "monitors",
+      "price": 14999,
+      "oldPrice": 18999,
+      "rating": 4.6,
+      "reviews": 970,
+      "imageHref": "/images/products/monitors/thunderobot-24f180-lancer.webp",
+      "specs": [
+        { "key": "diagonal", "label": "Диагональ", "value": "32" },
+        { "key": "resolution", "label": "Разрешение", "value": "2560×1440" },
+        { "key": "refresh-rate", "label": "Частота", "value": "144 Гц" },
+        { "key": "matrix", "label": "Тип матрицы", "value": "OLED" }
+      ]
+    },
+
+    {
+      "id": "12",
+      "title": "Механическая игровая клавиатура AJAZZ AK820",
+      "category": "keyboards",
+      "price": 3700,
+      "oldPrice": 5999,
+      "rating": 4.4,
+      "reviews": 540,
+      "imageHref": "/images/products/keyboards/ajazz-ak820-keyboard.webp",
+      "specs": [
+        { "key": "type", "label": "Тип", "value": "Проводная" },
+        { "key": "switch-type", "label": "Тип клавиш", "value": "механические" },
+        { "key": "backlight", "label": "Подсветка", "value": "ARGB" }
       ]
     }
   ],
