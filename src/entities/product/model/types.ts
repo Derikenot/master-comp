@@ -11,7 +11,7 @@ interface BaseProduct {
   oldPrice?: number;
   manufacturer: string;
   rating: number;
-  review: number;
+  reviews: number;
   imageHref: string;
   specs: Specs[];
 }

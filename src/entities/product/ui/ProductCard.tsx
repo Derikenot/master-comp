@@ -7,33 +7,46 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  const { imageHref, price, title, rating, review } = product;
+  const { imageHref, price, title, rating, reviews, oldPrice } = product;
 
   return (
-    <article>
-      <div>
-        <div>
-          <img src={imageHref} alt="" loading="lazy" />
+    <article className="flex flex-col h-full">
+      <div className="bg-gray border border-light-accent rounded-md ">
+        <img className="w-full h-full object-contain" src={imageHref} alt={title} loading="lazy" />
+      </div>
+
+      <div className="flex flex-col h-full">
+        <div className="flex items-center gap-2 mt-4">
+          <data className="text-xl font-medium" value={price}>
+            {price.toLocaleString('ru-RU')} <span>₽</span>
+          </data>
+          {oldPrice && (
+            <s className="text-dark-gray" aria-label={`Старая цена товара ${oldPrice} рублей`}>
+              {oldPrice.toLocaleString('ru-RU')} <span>₽</span>
+            </s>
+          )}
         </div>
 
-        <div>
-          <p>{price}</p>
-          <p>{title}</p>
+        <h3 className="my-1">{title}</h3>
 
-          <div>
-            <div>
-              <Star size={24} />
-              <span>{rating}</span>
-            </div>
+        <div className="flex items-center gap-3 mt-auto mb-7.5">
+          <div className="flex items-center gap-0.5" aria-label={`Рейтинг ${rating}`}>
+            <Star className="text-yellow fill-yellow" size={18} />
+            <span>{rating}</span>
+          </div>
 
-            <div>
-              <MessageCircleMore size={24} />
-              <span>{review}</span>
-            </div>
-
-            <Button>{'В корзину'}</Button>
+          <div className="flex items-center gap-0.5" aria-label={`Отзывов ${reviews}`}>
+            <MessageCircleMore className="text-dark-green" size={18} />
+            <span>{reviews}</span>
           </div>
         </div>
+
+        <Button
+          className="self-start py-3.5 mt-auto"
+          aria-label={`Добавить товар ${title} в корзину`}
+        >
+          {'В корзину'}
+        </Button>
       </div>
     </article>
   );
