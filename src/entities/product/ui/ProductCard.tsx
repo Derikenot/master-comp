@@ -11,7 +11,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const { id, imageHref, price, title, rating, reviews, oldPrice } = product;
 
   return (
-    <article className="relative flex flex-col h-full">
+    <article className="relative flex flex-col h-full p-px">
       <div className="bg-gray border border-light-accent rounded-md ">
         <img className="w-full h-full object-contain" src={imageHref} alt={title} loading="lazy" />
       </div>
