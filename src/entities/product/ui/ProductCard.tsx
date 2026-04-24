@@ -1,19 +1,22 @@
 import { MessageCircleMore, Star } from 'lucide-react';
 import { Button } from '@/shared/ui';
 import type { Product } from '@/entities/product/model/types.ts';
+import { AddToFavoriteButton } from '@/features/add-to-favorite';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  const { imageHref, price, title, rating, reviews, oldPrice } = product;
+  const { id, imageHref, price, title, rating, reviews, oldPrice } = product;
 
   return (
-    <article className="flex flex-col h-full">
+    <article className="relative flex flex-col h-full">
       <div className="bg-gray border border-light-accent rounded-md ">
         <img className="w-full h-full object-contain" src={imageHref} alt={title} loading="lazy" />
       </div>
+
+      <AddToFavoriteButton id={id} />
 
       <div className="flex flex-col h-full">
         <div className="flex items-center gap-2 mt-4">
