@@ -5,7 +5,7 @@ import { SwiperSlide } from 'swiper/react';
 
 export const Hero = () => {
   return (
-    <section className="py-14">
+    <section className="py-6 md:py-10">
       <div className="fluid-container">
         <Slider slidesPerView={1} spaceBetween={40}>
           {BANNERS.map((banner, index) => (

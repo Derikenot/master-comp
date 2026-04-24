@@ -15,7 +15,7 @@ export const ProductSection = ({ title, params }: ProductSectionProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
-    <section>
+    <section className="py-6 md:py-10">
       <div className="fluid-container">
         <ProductHeader title={title} swiperRef={swiperRef} />
         <ProductSlider
