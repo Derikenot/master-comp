@@ -22,7 +22,7 @@ export const ProductHeader = ({ title, swiperRef }: ProductHeaderProps) => {
 
   return (
     <header className="flex items-center justify-between gap-4 mb-8">
-      <h2 className="text-[26px] font-medium">{title}</h2>
+      <h2 className="text-[22px] md:text-[26px] font-medium">{title}</h2>
 
       <div className="gap-2 hidden md:flex">
         <ProductSliderButton dir="left" onClick={handlePrev} />
