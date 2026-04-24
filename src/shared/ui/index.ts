@@ -3,5 +3,7 @@ export { ButtonLink } from './button-link/ButtonLink';
 export { NavLink } from './nav-link/NavLink';
 export { Slider } from './slider/Slider';
 export { BannerShapeTop } from './icons/BannerShapeTop';
+export { BannerShapeLeft } from './icons/BannerShapeLeft';
 export { SliderButton } from './slider-button/SliderButton';
 export { PaginationDot } from './pagination-dot/PaginationDot';
+export { CategoryCard } from './category-card/CategoryCard';
