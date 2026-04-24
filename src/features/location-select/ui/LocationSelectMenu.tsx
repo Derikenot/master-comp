@@ -45,7 +45,7 @@ export const LocationSelectMenu = ({ onClose, onSelect, isOpen }: LocationSelect
       role="dialog"
       aria-modal="true"
       aria-labelledby="dialog-title"
-      className="fixed inset-0 flex items-center z-50 git justify-center bg-black/20 backdrop-blur-sm select-none"
+      className="fixed inset-0 flex items-center z-50  justify-center bg-black/20 backdrop-blur-sm select-none"
       onClick={onClose}
     >
       <div
